@@ -19,6 +19,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+// eslint-disable-next-line no-unused-vars
 router.get('/:id', validateUserId, (req, res, next) => {
   res.status(200).json(req.user);
 });
@@ -39,20 +40,28 @@ router.put('/:id', validateUserId, validateUser, (req, res, next) => {
     .catch(next);
 });
 
-router.delete('/:id', (req, res) => {
-  // RETURN THE FRESHLY DELETED USER OBJECT
-  // this needs a middleware to verify user id
+router.delete('/:id', validateUserId, (req, res, next) => {
+  Users.remove(req.params.id).then(res.status(200).json(req.user)).catch(next);
 });
 
-router.get('/:id/posts', (req, res) => {
-  // RETURN THE ARRAY OF USER POSTS
-  // this needs a middleware to verify user id
+router.get('/:id/posts', validateUserId, (req, res, next) => {
+  Users.getUserPosts(req.params.id)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch(next);
 });
 
-router.post('/:id/posts', (req, res) => {
-  // RETURN THE NEWLY CREATED USER POST
-  // this needs a middleware to verify user id
-  // and another middleware to check that the request body is valid
+router.post('/:id/posts', validateUserId, validatePost, (req, res, next) => {
+  const newPost = {
+    text: req.body.text,
+    user_id: req.params.id,
+  };
+  Posts.insert(newPost)
+    .then((post) => {
+      res.status(201).json(post);
+    })
+    .catch(next);
 });
 
-// do not forget to export the router
+module.exports = router;
