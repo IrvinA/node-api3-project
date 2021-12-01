@@ -2,7 +2,6 @@ const express = require('express');
 
 const {
   handleError,
-  logger,
   validatePost,
   validateUser,
   validateUserId,
