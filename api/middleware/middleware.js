@@ -7,11 +7,16 @@ function handleError(err, req, res, next) {
 }
 
 function logger(req, res, next) {
-  
+  console.log({
+    method: req.method,
+    url: req.baseUrl,
+    requestTime: Date.now()
+  })
+  next()
 }
 
 function validateUserId(req, res, next) {
-  // DO YOUR MAGIC
+  
 }
 
 function validateUser(req, res, next) {
