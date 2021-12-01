@@ -1,5 +1,6 @@
 const Users = require('../users/users-model');
 
+// eslint-disable-next-line no-unused-vars
 function handleError(err, req, res, next) {
   res.status(err.status || 500).json({
     message: err.message,
@@ -29,11 +30,21 @@ function validateUserId(req, res, next) {
 }
 
 function validateUser(req, res, next) {
-  // DO YOUR MAGIC
+  const { name } = req.body;
+  if (!name) {
+    next({ status: 400, message: 'missing required name field' });
+  } else {
+    next();
+  }
 }
 
 function validatePost(req, res, next) {
-  // DO YOUR MAGIC
+  const { text } = req.body;
+  if (!text) {
+    next({ status: 400, message: 'missing required text field' });
+  } else {
+    next();
+  }
 }
 
 module.exports = {
