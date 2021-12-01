@@ -1,12 +1,5 @@
 const Users = require('../users/users-model');
 
-// eslint-disable-next-line no-unused-vars
-function handleError(err, req, res, next) {
-  res.status(err.status || 500).json({
-    message: err.message,
-  });
-}
-
 function logger(req, res, next) {
   console.log({
     method: req.method,
@@ -48,7 +41,6 @@ function validatePost(req, res, next) {
 }
 
 module.exports = {
-  handleError,
   logger,
   validateUserId,
   validateUser,

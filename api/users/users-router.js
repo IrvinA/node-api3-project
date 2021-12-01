@@ -1,7 +1,6 @@
 const express = require('express');
 
 const {
-  handleError,
   validatePost,
   validateUser,
   validateUserId,
@@ -13,7 +12,11 @@ const Posts = require('../posts/posts-model');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  // RETURN AN ARRAY WITH ALL THE USERS
+  Users.get()
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(err => )
 });
 
 router.get('/:id', (req, res) => {
