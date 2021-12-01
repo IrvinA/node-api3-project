@@ -1,5 +1,13 @@
+const Users = require('../users/users-model');
+
+function handleError(err, req, res, next) {
+  res.status(err.status || 500).json({
+    message: err.message
+  })
+}
+
 function logger(req, res, next) {
-  // DO YOUR MAGIC
+  
 }
 
 function validateUserId(req, res, next) {
@@ -14,4 +22,10 @@ function validatePost(req, res, next) {
   // DO YOUR MAGIC
 }
 
-// do not forget to expose these functions to other modules
+module.exports = {
+  handleError,
+  logger,
+  validateUserId,
+  validateUser,
+  validatePost
+}
